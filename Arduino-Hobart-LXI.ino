@@ -23,7 +23,7 @@ enum WaterLevel { WaterLevelLow, WaterLevelMedium, WaterLevelHigh };
 enum CycleStage { CycleStageIdle, CycleStageFill, CycleStagePreWash, CycleStageWash, CycleStageRinse };
 
 //Global state vars
-WaterLevel currentLevel = WaterLevelLow;
+WaterLevel currentWaterLevel = WaterLevelLow;
 CycleStage currentStage = CycleStageIdle;
 boolean doorIsOpen = false;
 
@@ -90,7 +90,7 @@ void loop() {
         //Turn on the fill relay until water level is high. Then progress to the prewash cycle.
         digitalWrite(fillRelay, HIGH);
         digitalWrite(washRelay, LOW);
-        if (currentLevel == WaterLevelHigh) {
+        if (currentWaterLevel == WaterLevelHigh) {
           Serial.println("Finished pre-fill. Starting pre-wash");
           startPreWash();
         }
@@ -173,9 +173,9 @@ void updateWaterLevel() {
     thisLevel = WaterLevelLow;
   }
 
-  if (thisLevel != currentLevel) {
-    currentLevel = thisLevel;
-    switch (currentLevel) {
+  if (thisLevel != currentWaterLevel) {
+    currentWaterLevel = thisLevel;
+    switch (currentWaterLevel) {
       case WaterLevelHigh:
         Serial.println("Water High");
         break;
@@ -200,7 +200,7 @@ void washButtonPressed() {
   }
 
   //Check to see if sufficient water level. If not high, first pre-fill. Otherwise, proceed with prewash.
-  if (currentLevel != WaterLevelHigh) {
+  if (currentWaterLevel != WaterLevelHigh) {
     Serial.println("Water level too low. Starting pre-fill");
     currentStage = CycleStageFill;
   }
