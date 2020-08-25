@@ -45,7 +45,7 @@ void loop() {
   updateWaterLevel();
 
   //Debounces button input so it can't be triggered again until 1000ms has elasped.
-  if  (millis() - washButtonTimestamp > buttonLockout && digitalRead(washButtonInput) == LOW) {
+  if  (!doorIsOpen && millis() - washButtonTimestamp > buttonLockout && digitalRead(washButtonInput) == LOW) {
     washButtonTimestamp = millis();
     wash();
   }
