@@ -1,3 +1,14 @@
+/* Arduino-Hobart-LXI
+ *
+ * By: Kris Zabala
+ * 
+ * Date: August, 2020
+ *
+ * Piggyback controller to extend wash times and check water level on Hobart LXI commercial dishwashers.
+ * Refer to README for hardware connections.
+ * 
+ */
+
 //Pins
 const int washRelay = 4;
 const int fillRelay = 5;
