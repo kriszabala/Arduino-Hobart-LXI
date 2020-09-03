@@ -17,20 +17,18 @@ Conveniently the control board provides LED indicators for the current water lev
 
 Connections:
 
-A -> NO4 - Relay 4 (Wash)
-
-B -> COM4 - Relay 4 (Wash)
-
-C -> NO3 - Relay 3 (Rinse)
-D -> COM3 - Relay 3 (Rinse)
-E -> Pin 5V - 5V
-F -> Pin 9 - Water Level High
-G -> Pin 10 - Water Level Med
-H -> Pin 8 - Door Switch Input
-I -> Ground - Ground
-J -> Pin 12 - Rinse Sense Input
-K -> Pin 11 - Wash Button Input 
-L -> NO2 - Relay 2 (Wash Trigger)
+A -> NO4 - Relay 4 (Wash)<br/>
+B -> COM4 - Relay 4 (Wash)<br/>
+C -> NO3 - Relay 3 (Rinse)<br/>
+D -> COM3 - Relay 3 (Rinse)<br/>
+E -> Pin 5V - 5V<br/>
+F -> Pin 9 - Water Level High<br/>
+G -> Pin 10 - Water Level Med<br/>
+H -> Pin 8 - Door Switch Input<br/>
+I -> Ground - Ground<br/>
+J -> Pin 12 - Rinse Sense Input<br/>
+K -> Pin 11 - Wash Button Input<br/>
+L -> NO2 - Relay 2 (Wash Trigger)<br/>
 
 ![Control Board Connections](https://github.com/kriszabala/Arduino-Hobart-LXI/raw/master/Control_Board_Connections.jpg)
 
