@@ -28,15 +28,13 @@ CycleStage currentStage = CycleStageIdle;
 boolean doorIsOpen = false;
 
 //Config
-const int BAUD_RATE = 115200;
-unsigned long prewashDuration = 1000 * 10;
+unsigned long prewashDuration = 300000;
 //Disable washButton for 3 minutes upon power up.
-unsigned long initLockoutDuration = 1000 * 180;
+unsigned long initLockoutDuration = 180000;
 
 void setup() {
   delay(100);
-  Serial.begin(BAUD_RATE);
-
+  Serial.begin(115200);
   //Init Relays
   pinMode(washRelay, OUTPUT);
   pinMode(fillRelay, OUTPUT);
@@ -72,7 +70,7 @@ void loop() {
     }
     //Debounces button input so it can't be triggered again until 1000ms has elasped.
     else if (millis() - washButtonTimestamp < buttonLockout) {
-      Serial.println("Wash button locked out.");
+      //Serial.println("Wash button locked out.");
     }
     else {
       washButtonTimestamp = millis();
@@ -101,7 +99,7 @@ void loop() {
         //Turn on the wash relay until elapsed time > prewashDuration.
         digitalWrite(fillRelay, LOW);
         digitalWrite(washRelay, HIGH);
-        if (millis() > preWashTimestamp + prewashDuration) {
+        if (millis() > (preWashTimestamp + prewashDuration) ) {
           startWash();
         }
       }
@@ -111,7 +109,7 @@ void loop() {
       digitalWrite(fillRelay, LOW);
       digitalWrite(washRelay, LOW);
       //Check to see if the rinse relay is activated to determine if wash cycle is finished.
-      if (digitalRead(rinseInput) == HIGH) {
+      if (millis() > preWashTimestamp && digitalRead(rinseInput) == LOW) {
         Serial.println("Detected rinse started");
         currentStage = CycleStageRinse;
       }
@@ -121,7 +119,7 @@ void loop() {
       digitalWrite(fillRelay, LOW);
       digitalWrite(washRelay, LOW);
       //Check to see if rinse relay is turned off, signaling the end of the full cycle.
-      if (digitalRead(rinseInput) == LOW) {
+      if (digitalRead(rinseInput) == HIGH) {
         //Delay to lockout wash button to match machine cycle reset time.
         delay(2000);
         Serial.println("Full cycle finished");
@@ -220,5 +218,6 @@ void startWash() {
   digitalWrite(washButtonRelay, HIGH);
   delay(250);
   digitalWrite(washButtonRelay, LOW);
+  preWashTimestamp = millis() + 30000;
   currentStage = CycleStageWash;
 }
